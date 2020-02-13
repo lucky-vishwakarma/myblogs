@@ -1,0 +1,24 @@
+.not_found{
+	margin: 100px;
+	height: 400px;
+}
+.server_error{
+	margin: 100px;
+	height: 400px;
+}
+.row{
+	min-height: 510px !important;
+}
+.mt-80{
+	margin-top: 80px;
+}
+.mb-20{
+	margin-bottom: 20px;
+}
+.reply_section{
+	margin-left: 80px;
+}
+.images{
+	height: 50% !important;
+	width: 100% !important;
+}

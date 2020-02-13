@@ -1,33 +1,26 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :update, :destroy]
 
-  # GET /posts
-  # GET /posts.json
   def index
     @posts = Post.all
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
   def show
     @comments = @post.comments
   end
 
-  # GET /posts/new
   def new
     @post = Post.new
   end
 
-  # GET /posts/1/edit
   def edit
+    @post = current_user.posts.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
   end
 
-  # POST /posts
-  # POST /posts.json
   def create
     @post = current_user.posts.new(post_params)
-
       if @post.save
         redirect_to @post, notice: 'Post was successfully created.'
       else
@@ -35,35 +28,28 @@ class PostsController < ApplicationController
       end
   end
 
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
   def update
-    respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
+        redirect_to @post, notice: 'Post was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.json
+
   def destroy
     @post.destroy
     redirect_to posts_url, notice: 'Post was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Fetch post by id
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.find_by(id: params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :description)
+      params.require(:post).permit(:title, :description, :image)
     end
 end
