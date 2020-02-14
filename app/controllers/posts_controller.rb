@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_post, only: [:show, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :like, :dislike]
+  before_action :set_post, only: [:show, :update, :destroy, :like, :dislike]
 
   def index
     @posts = Post.all
@@ -24,7 +24,7 @@ class PostsController < ApplicationController
       if @post.save
         redirect_to @post, notice: 'Post was successfully created.'
       else
-        render :new 
+        render :new, error: @post.errors.full_messages.join(',')
       end
   end
 
@@ -36,11 +36,20 @@ class PostsController < ApplicationController
       end
   end
 
-
   def destroy
     @post.destroy
     redirect_to posts_url, notice: 'Post was successfully destroyed.'
   end
+
+  def like
+    @post.upvote_from current_user
+  end
+
+  def dislike
+    @post.downvote_from current_user
+  end
+
+
 
   private
     # Fetch post by id

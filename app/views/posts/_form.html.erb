@@ -26,7 +26,7 @@
                 </div>
                 <span>Upload Image</span>
                 <div class="form-group">
-                  <%= form.file_field :image %>
+                  <%= form.file_field :image, required: :true %>
                 </div>
                 <%= form.submit "Publish", class: "btn btn-primary" %>
               <% end %>

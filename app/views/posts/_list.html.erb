@@ -1,5 +1,4 @@
 <div class="container-fluid mt-80">
-<p id="notice"><%= notice %></p>
   <div class="row">
     <% @posts.each do |post| %>
     <div class="col-md-3 mb-20">
@@ -10,11 +9,16 @@
          <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
         <% end %>
         <div class="card-body">
-          <h5 class="card-title"><%= post.id %>, <%= post.title %></h5>
+          <span style="float: right;padding-left: 4px;">
+            <%= image_tag('small_like.png') %>
+            <%= post.get_upvotes.size %>
+          </span>
+          <span style="float: right;padding-left: 4px;"><%= image_tag 'small_dislike.png', class: "img-fluid" %><%= post.get_downvotes.size %></span>
+          <h5 class="card-title"><%= post.title %></h5>
           <p class="card-text"><%= post.description %></p>
           <%= link_to 'View', post, class: "btn btn-primary" %>
 
-          <% if post.is_eligible_user(current_user) %>
+          <% if user_signed_in? && post.is_eligible_user(current_user) %>
             <%= link_to 'Edit', edit_post_path(post), class: "btn btn-primary" %>
             <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
           <% end %>

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
 
   resources :posts do 
+    put :like, on: :member
+    put :dislike, on: :member
   	resources :comments do
   		get :new_reply, on: :member
   	end

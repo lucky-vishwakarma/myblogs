@@ -7,7 +7,7 @@
 	height: 400px;
 }
 .row{
-	min-height: 510px !important;
+	min-height: 520px !important;
 }
 .mt-80{
 	margin-top: 80px;
@@ -15,10 +15,33 @@
 .mb-20{
 	margin-bottom: 20px;
 }
+.mt-55{
+	margin-top: 55px;
+	height: 65px;
+
+}
 .reply_section{
 	margin-left: 80px;
+}
+.like{
+    padding: 10px;
 }
 .images{
 	height: 50% !important;
 	width: 100% !important;
+}
+.alert-notice {
+	color: #0c5460;
+	background-color: #d1ecf1;
+	border-color: #bee5eb;
+}
+.alert-alert{
+	color: #851604;
+	background-color: #fff3cd;
+	border-color: #ffeeba;
+}
+.alert-error{
+	color: #851604;
+	background-color: #fff3cd;
+	border-color: #ffeeba;
 }

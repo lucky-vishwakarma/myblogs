@@ -1,0 +1,41 @@
+   <!-- Comments -->
+        <% @comments.each do |comment| %>
+	        <% if comment. persisted? %>
+		        <div class="media mb-4">
+		          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+		          <div class="media-body">
+		            <h5 class="mt-0"><%= comment.user.name %></h5>
+		            <%= comment.boby %>		            
+		          	<div><%= link_to "Reply", new_post_reply_path(@post, comment_id: comment), remote: :true %></div>
+		        	<div id="comment_<%= comment.id %>"></div>
+		          	 <!-- reply section -->
+				      <% comment.replies.each do |reply| %>
+			        	<div class="media mt-4">
+			              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+			              <div class="media-body">
+			                <h5 class="mt-0"><%= reply.user.name %></h5>
+			                <%= reply.boby %><br>
+			                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. 
+			                <div><%= link_to "Reply", new_post_reply_path(@post, reply_to: reply.id), remote: :true %></div>
+			                <div id="reply_to_<%= reply.id %>"></div>
+			                 <!-- reply section -->
+						      <% reply.nested_replys.each do |nes_reply| %>
+					        	<div class="media mt-4">
+					              <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+					              <div class="media-body">
+					                <h5 class="mt-0"><%= nes_reply.user.name %></h5>
+					                <%= nes_reply.boby %><br>
+					                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. 
+					              </div>
+					            </div>
+							   <% end %>
+				        	<!-- end reply section -->
+			              </div>
+			          </div>
+					     <% end %>
+		        	<!-- end reply section -->
+		          </div>
+		        </div>		      
+	        <% end %>
+        <% end %>
+         <!-- End Comments -->

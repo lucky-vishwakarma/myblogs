@@ -1,12 +1,12 @@
 <div class="card my-4 hide">
   <div class="card-body">
-    <%= form_for @reply, url: post_replies_path(@post) do |form| %>
+    <%= form_for @reply, url: post_replies_path(@post), remote: :true do |form| %>
       <div class="form-group">
       	<%= form.hidden_field :comment_id %>
       	<%= form.hidden_field :reply_to  %>
-      	<%= form.text_area :boby, placeholder: "Add a comment", class: "form-control" %>
+      	<%= form.text_area :boby, placeholder: "Reply", required: :true, class: "form-control" %>
       </div>
-      <%= form.submit class: "btn btn-primary" %>
+      <%= form.submit "Add Reply", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

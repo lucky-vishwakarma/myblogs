@@ -1,11 +1,11 @@
 class RepliesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :find_post, only: [:new, :create]
+  before_action :authenticate_user!
+  before_action :find_post
 
 	def new
 		if params[:comment_id].present?
-			@comment = Comment.find_by(id: params[:comment_id])
-			@reply = @comment.replies.new
+			comment = Comment.find_by(id: params[:comment_id])
+			@reply = comment.replies.new
 		else
 			reply = Reply.find_by(id: params[:reply_to])
 			@reply = reply.nested_replys.new
@@ -13,12 +13,9 @@ class RepliesController < ApplicationController
 	end
 
 	def create
-		@reply = Reply.new(reply_params)
-		@reply.user_id = current_user.id
-		if @reply.save
-			redirect_to @post
-		end
-
+		@comments = @post.comments
+		@reply = current_user.replies.new(reply_params)
+		@reply.save
 	end
 
 	private
