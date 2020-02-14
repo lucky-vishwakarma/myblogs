@@ -1,23 +1,35 @@
- <% if @post.user == current_user %>
-  <%= link_to "javascript:void(0)" do %> 
-    <%= image_tag 'like1.png', class: "img-fluid" %>
-  <% end %>
-  <p id="like_count"><%= @post.get_upvotes.size %></p>
+<% if user_signed_in? %>
+   <% if @post.user == current_user %>
+    <%= link_to "javascript:void(0)" do %> 
+      <%= image_tag 'like1.png', class: "img-fluid" %>
+    <% end %>
+    <p id="like_count"><%= @post.get_upvotes.size %></p>
 
-  <%= link_to "javascript:void(0)" do %> 
-    <%= image_tag 'dislike1.png', class: "img-fluid" %>
+    <%= link_to "javascript:void(0)" do %> 
+      <%= image_tag 'dislike1.png', class: "img-fluid" %>
+    <% end %>
+    <p id="dislike_count"><%= @post.get_downvotes.size %></p>
+  <% else %>
+  <div style="display: inline-flex;">
+    <%= link_to like_post_path(@post), remote: :true, method: :put, class: "like"  do %>
+      <%= image_tag 'like1.png', class: "img-fluid" %>
+    <% end %>
+    <p id="like_count"><%= @post.get_upvotes.size %></p>
+
+    <%= link_to dislike_post_path(@post), remote: :true, method: :put, class: "like" do %> 
+      <%= image_tag 'dislike1.png', class: "img-fluid" %>
+    <% end %>
+    <p id="dislike_count"><%= @post.get_downvotes.size %></p>
+  </div>
   <% end %>
-  <p id="dislike_count"><%= @post.get_downvotes.size %></p>
 <% else %>
-<div style="display: inline-flex;">
-  <%= link_to like_post_path(@post), remote: :true, method: :put, class: "like"  do %>
-    <%= image_tag 'like1.png', class: "img-fluid" %>
-  <% end %>
-  <p id="like_count"><%= @post.get_upvotes.size %></p>
+  <%= link_to new_user_session_path do %> 
+      <%= image_tag 'like1.png', class: "img-fluid" %>
+    <% end %>
+    <p id="like_count"><%= @post.get_upvotes.size %></p>
 
-  <%= link_to dislike_post_path(@post), remote: :true, method: :put, class: "like" do %> 
-    <%= image_tag 'dislike1.png', class: "img-fluid" %>
-  <% end %>
-  <p id="dislike_count"><%= @post.get_downvotes.size %></p>
-</div>
+    <%= link_to new_user_session_path do %> 
+      <%= image_tag 'dislike1.png', class: "img-fluid" %>
+    <% end %>
+    <p id="dislike_count"><%= @post.get_downvotes.size %></p>
 <% end %>

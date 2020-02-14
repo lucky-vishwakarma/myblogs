@@ -15,7 +15,7 @@
           </span>
           <span style="float: right;padding-left: 4px;"><%= image_tag 'small_dislike.png', class: "img-fluid" %><%= post.get_downvotes.size %></span>
           <h5 class="card-title"><%= post.title %></h5>
-          <p class="card-text"><%= post.description %></p>
+          <p class="card-text"><%= truncate(post.description, length: 20) %></p>
           <%= link_to 'View', post, class: "btn btn-primary" %>
 
           <% if user_signed_in? && post.is_eligible_user(current_user) %>
